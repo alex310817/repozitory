@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
+ 
+namespace _1_задание
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Инициализация переменных
+            string text;
+            text = "";
+ 
+            // Поток считывания
+            StreamReader sr = new StreamReader(@"text.txt", Encoding.GetEncoding(1251));
+            // Считываем текст из файла
+            while (!sr.EndOfStream)
+            {
+                text += sr.ReadLine();
+                text += "\n";
+            }
+            // Показываем текст
+            Console.WriteLine("{0}\n", text);
+ 
+            // Разбиваем текст на слова (в массив строк)
+            string[] textArray = text.Split(new char[] { ' ' });
+ 
+            // Данные массива (кол-во слов)
+            Console.WriteLine("Кол-во слов: {0}.", textArray.Length);
+ 
+            // Самое длинное слово (берем первое)
+            string longestWord = "";
+ 
+            // Перебираем слова
+            for (int i = 0; i < textArray.Length; i++)
+                // Сравниваем длины слов
+                if ((textArray[i].Length >= longestWord.Length))
+                    // Если длиннее, значит берем его
+                    longestWord = textArray[i];
+ 
+            // Самое короткое слово (самое длинное)
+            string smallestWord = longestWord;
+ 
+            // Перебираем слова
+            for (int i = 0; i < textArray.Length; i++)
+                // Сравниваем длины слов
+                if ((textArray[i].Length <= smallestWord.Length) && (textArray[i].Length > 1))
+                    // Если короче, значит берем его
+                    smallestWord = textArray[i];
+ 
+            Console.WriteLine("Самое короткое слово: \"{0}\", кол-во символов {1}.", smallestWord, smallestWord.Length);
+        }
+    }
+}
